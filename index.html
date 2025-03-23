@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #0099cc 100%, #006699 100%);
+        }
+        .card{
+            background-color: rgba(240, 239, 239, 0.972);
+            height: 30%;
+            /* display: flex;
+            flex-direction: column; */
+            width: 29%;
+            border-radius: 12px;
+            position: relative; /* To allow positioning of child elements */
+            transition: all 0.3s ;
+            margin-bottom: 30px;
+        }
+        h1{
+            padding-top: 20px;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        input{
+            box-shadow: none;
+            border-radius: 6px;
+            margin-left: 30px;
+            padding: 5px;
+            width: 150px;
+            border-color: white;
+            margin-top: 23px;
+            
+        }
+        button{
+            box-shadow: none;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 7px;
+            border-color:  rgb(18, 160, 242);
+            background-color: rgb(18, 160, 242);
+        }
+        .detail{
+            background-color: rgba(240, 239, 239, 0.972);
+            height: 300px;
+            border-bottom-right-radius: 12px;
+            border-bottom-left-radius: 12px;
+            margin-top: 10px; 
+        }
+        .inside{
+            margin: 30px;
+            height: 270px;
+            width: 80%;
+            box-shadow: 1px 1px 1px white;
+            background-color: rgb(255, 255, 255);
+        }
+        .temp{
+            text-align: center;
+            padding-top: 20px;
+            font-style: bold;
+        }
+        .des{
+            display: flex;
+        }
+        .humi{
+            margin-top: 60px;
+            padding-left: 20px;
+            padding-bottom: 10px;
+            font-size: 14px;
+        }
+        .nature{
+            padding-top: 30px;
+            text-align: center;
+        }
+        .city{
+            text-align: center;
+            font-style: bold;
+            padding-top: 20px;
+            font-size: xx-large;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="card">
+          <h1>Weather App</h1>
+           <input type="text" placeholder="Enter city name">
+           <button onclick="getdata()">Get Weather</button>
+        </div>
+    </div>
+    <script>
+      const detail=document.createElement("div");
+      const insidediv=document.createElement("div");
+      detail.appendChild(insidediv);
+      const cityname=document.createElement("p");
+       insidediv.appendChild(cityname);
+       const temp=document.createElement("h1");
+       insidediv.appendChild(temp);
+       const nature = document.createElement("p");
+       insidediv.appendChild(nature);
+       const des=document.createElement("div");
+       insidediv.appendChild(des);
+       const humi=document.createElement("div");
+       des.appendChild(humi);
+       const speed=document.createElement("div");
+       des.appendChild(speed);
+       const likes=document.createElement("div");
+       des.appendChild(likes);
+
+       async function getdata(){
+        const inputvalue=document.querySelector("input").value;
+        const city=inputvalue;
+
+        const url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6bd577f5127b483cc3f83e0f9fd01a3e&units=metric`
+        const response= await fetch(url);
+        const val=await response.json();
+
+       
+        detail.classList.add("detail");
+
+      
+        insidediv.classList.add("inside");
+        
+        cityname.classList.add("city");
+        cityname.textContent=city;
+       
+     
+       temp.classList.add("temp");
+       temp.textContent=JSON.stringify(val.main.temp);
+
+       if (val && val.weather && Array.isArray(val.weather) && val.weather.length > 0) {
+     
+      nature.classList.add("nature");
+      nature.textContent = val.weather[0].description;  
+      
+    } 
+
+      
+       des.classList.add("des");
+     
+       humi.classList.add("humi");
+       humi.innerHTML="Humidity";
+       humi.innerHTML += "<br>"; 
+       humi.innerHTML+=JSON.stringify(val.main.humidity);
+     
+      
+       speed.classList.add("humi");
+       speed.innerHTML="Wind Speed"
+       speed.innerHTML+="<br>";
+       speed.innerHTML+=JSON.stringify(val.wind.speed);
+
+       likes.classList.add("humi");
+       likes.innerHTML="Feels like"
+       likes.innerHTML+="<br>";
+       likes.innerHTML+=JSON.stringify(val.main.feels_like);
+
+       document.querySelector(".card").appendChild(detail);
+       document.querySelector(".card").style.transform = "translateY(-90%)"; 
+       
+           
+           
+        }
+
+
+    </script>
+</body>
+</html>
