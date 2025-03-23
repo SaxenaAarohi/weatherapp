@@ -23,7 +23,7 @@
             height: 30%;
             /* display: flex;
             flex-direction: column; */
-            width: 29%;
+            width: 25%;
             border-radius: 12px;
             position: relative; /* To allow positioning of child elements */
             transition: all 0.3s ;
@@ -86,6 +86,10 @@
             padding-top: 30px;
             text-align: center;
         }
+        .center{
+            display:flex;
+            justify-content:center;
+        }
         .city{
             text-align: center;
             font-style: bold;
@@ -98,8 +102,11 @@
     <div class="main">
         <div class="card">
           <h1>Weather App</h1>
-           <input type="text" placeholder="Enter city name">
-           <button onclick="getdata()">Get Weather</button>
+            <div class="center">
+            <div> <input type="text" placeholder="Enter city name"></div>
+           <div><button onclick="getdata()">Get Weather</button></div>
+            
+          </div>
         </div>
     </div>
     <script>
