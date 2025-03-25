@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,7 +149,10 @@
         </div>
     </div>
     <script>
+         const load=document.createElement("div");
         const loading=document.createElement("div");
+        loading.appendChild(load);
+        document.querySelector(".card").appendChild(loading);
       const detail=document.createElement("div");
       const insidediv=document.createElement("div");
       detail.appendChild(insidediv);
@@ -174,10 +178,9 @@
         const url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6bd577f5127b483cc3f83e0f9fd01a3e&units=metric`
         
         loading.classList.add("loading");
-        const load=document.createElement("div");
+       
         load.classList.add("load");
-        loading.appendChild(load);
-        document.querySelector(".card").appendChild(loading);
+       
 
         const response= await fetch(url);
         loading.classList.remove("loading");
