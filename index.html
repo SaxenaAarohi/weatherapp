@@ -175,7 +175,7 @@
         const load=document.createElement("div");
         load.classList.add("load");
         loading.appendChild(load);
-        document.querySelector(".card").appendChild(loading);
+        document.querySelector(".center").appendChild(loading);
 
         const response= await fetch(url);
         loading.classList.remove("loading");
