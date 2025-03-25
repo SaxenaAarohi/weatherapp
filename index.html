@@ -153,6 +153,7 @@
         const loading=document.createElement("div");
         loading.appendChild(load);
         document.querySelector(".card").appendChild(loading);
+
       const detail=document.createElement("div");
       const insidediv=document.createElement("div");
       detail.appendChild(insidediv);
@@ -174,48 +175,42 @@
        async function getdata(){
         const inputvalue=document.querySelector("input").value;
         const city=inputvalue;
-        
         const url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6bd577f5127b483cc3f83e0f9fd01a3e&units=metric`
         
         loading.classList.add("loading");
-       
         load.classList.add("load");
        
 
         const response= await fetch(url);
-        loading.classList.remove("loading");
-        load.classList.remove("load");
         const val=await response.json();
 
-       
-        detail.classList.add("detail");
-
-      
-        insidediv.classList.add("inside");
+        loading.classList.remove("loading");
+        load.classList.remove("load");
         
+        const existingDetails = document.querySelector(".detail");
+            if (existingDetails) {
+                existingDetails.remove();
+            }
+
+        detail.classList.add("detail");
+        insidediv.classList.add("inside");
         cityname.classList.add("city");
-        cityname.textContent=city;
-       
-     
-       temp.classList.add("temp");
-       temp.textContent=JSON.stringify(val.main.temp);
+        cityname.textContent=val.name;
+        temp.classList.add("temp");
+         temp.textContent=`${val.main.temp}°C`;
 
        if (val && val.weather && Array.isArray(val.weather) && val.weather.length > 0) {
-     
       nature.classList.add("nature");
       nature.textContent = val.weather[0].description;  
-      
     } 
 
-      
        des.classList.add("des");
-     
+
        humi.classList.add("humi");
        humi.innerHTML="Humidity";
        humi.innerHTML += "<br>"; 
        humi.innerHTML+=JSON.stringify(val.main.humidity);
      
-      
        speed.classList.add("humi");
        speed.innerHTML="Wind Speed"
        speed.innerHTML+="<br>";
