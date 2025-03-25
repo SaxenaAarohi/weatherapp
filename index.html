@@ -108,6 +108,30 @@
                 height:20%;
             }
         }
+        .loading{
+            height: 70px;
+            width: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(240, 239, 239, 0.972);
+        }
+        .load{
+            height: 50px;
+            border: 5px solid blue;
+            width: 50px;
+            border-radius: 100%;
+            border-top: 5px solid transparent;
+            animation: spin 1.8s linear infinite;
+        }
+        @keyframes spin{
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -122,6 +146,7 @@
         </div>
     </div>
     <script>
+        const loading=document.createElement("div");
       const detail=document.createElement("div");
       const insidediv=document.createElement("div");
       detail.appendChild(insidediv);
@@ -143,9 +168,18 @@
        async function getdata(){
         const inputvalue=document.querySelector("input").value;
         const city=inputvalue;
-
+        
         const url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6bd577f5127b483cc3f83e0f9fd01a3e&units=metric`
+        
+        loading.classList.add("loading");
+        const load=document.createElement("div");
+        load.classList.add("load");
+        loading.appendChild(load);
+        document.querySelector(".card").appendChild(loading);
+
         const response= await fetch(url);
+        loading.classList.remove("loading");
+        load.classList.remove("load");
         const val=await response.json();
 
        
